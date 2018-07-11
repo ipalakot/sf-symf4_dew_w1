@@ -1,0 +1,7 @@
+biblio_homepage:
+    path:     /
+    defaults: { _controller: BiblioBundle:Default:index }
+
+biblio_ajout:
+    path:     /ajout
+    defaults: { _controller: BiblioBundle:Enfants:ajout }

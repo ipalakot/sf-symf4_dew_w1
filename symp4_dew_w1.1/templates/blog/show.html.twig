@@ -1,0 +1,21 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue sur ce Blog!{% endblock %}
+
+{% block body %}
+
+        <articles>
+        
+        <h2>{{ article.title }}</h2>
+        
+        <div class="metadata"> Ecrit le: {{ article.createdAt | date ('d/m/y') }} -  Categorie : Politique</div>
+        
+        <div class="content">
+                <img src="{{ article.image }}">
+                {{ article.content |raw }}
+         </div>
+          
+
+        </articles>
+{% endblock %}

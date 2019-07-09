@@ -10,7 +10,13 @@
 
 	{{ form_start(formArticle) }}
 		{{ form_widget(formArticle) }}
-		<button type="submit" class="btn btn-success">Ajouter l'article </button>
+		<button type="submit" class="btn btn-success">
+    		{% if editMode%}
+    			Enregister la modification !
+    		{% else %}
+    			Ajouter l'article 
+    		{% endif %}
+		</button>
 	{{ form_end(formArticle) }}
 
 {% endblock %}

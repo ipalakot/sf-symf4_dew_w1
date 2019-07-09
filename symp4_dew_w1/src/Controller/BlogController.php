@@ -8,9 +8,10 @@ use App\Entity\Article;
 
 class BlogController extends AbstractController
 {
-    /**
-     * @Route("/blog", name="blog")
-     */
+
+/**
+ * @Route("/blog", name="blog")
+*/
     public function index()
     {
     	$repo = $this->getDoctrine()->getRepository(Article::class);
@@ -23,18 +24,27 @@ class BlogController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/", name="home")
-     */
+/**
+ * @Route("/", name="home")
+*/
      public function home()
         {
             return $this->render('blog/home.html.twig', [
 
             ]);
         }
-    /**
-     * @Route("/blog/article/{id}", name="blog_show")
-     */
+
+/**
+  * @Route("/blog/new", name="blog_create")
+*/
+        public function create() {
+        	return $this-> render ('blog/create.html.twig') ;
+        }
+        
+        
+/**
+ * @Route("/blog/article/{id}", name="blog_show")
+*/
      public function show($id)
      
         {
@@ -45,5 +55,6 @@ class BlogController extends AbstractController
         	return $this->render('blog/show.html.twig', [
         		'article'=>$article
             ]);
-        }
+        }      
+
 }

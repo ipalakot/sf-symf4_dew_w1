@@ -29,7 +29,7 @@ class Comment
     /**
      * @ORM\Column(type="datetime")
      */
-    private $cretedAt;
+    private $createdAt;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="comments")
@@ -66,14 +66,14 @@ class Comment
         return $this;
     }
 
-    public function getCretedAt(): ?\DateTimeInterface
+    public function getcreatedAt(): ?\DateTimeInterface
     {
-        return $this->cretedAt;
+        return $this->createdAt;
     }
 
-    public function setCretedAt(\DateTimeInterface $cretedAt): self
+    public function setcreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->cretedAt = $cretedAt;
+        $this->createdAt = $createdAt;
 
         return $this;
     }

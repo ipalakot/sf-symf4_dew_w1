@@ -30,6 +30,8 @@ class User
      * @ORM\Column(type="string", length=255)
      */
     private $password;
+    
+    public $confirm_password;
 
     public function getId(): ?int
     {
@@ -71,4 +73,7 @@ class User
 
         return $this;
     }
+
+
+
 }

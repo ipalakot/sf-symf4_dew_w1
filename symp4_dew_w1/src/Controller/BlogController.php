@@ -2,19 +2,23 @@
 
 namespace App\Controller;
 
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Doctrine\Common\Persistence\ObjectManager;
-
-
 use App\Entity\Article;
-use App\REpository\ArticleRepository;
 use App\Form\ArticleType;
+use App\Entity\Comment;
+use App\Form\CommentType;
+
+use App\Repository\ArticleRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Routing\Annotation\Route;
+
+
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 
 
 class BlogController extends AbstractController
@@ -79,14 +83,29 @@ class BlogController extends AbstractController
 
         
 /**
- * @Route("/blog/article/{id}", name="blog_show")
+ * @Route("/blog/{id}", name="blog_show")
 */
-     public function show($id)     
+     public function show(Article $article, Request $request, ObjectManager $manager )     
         {
-        	$repo=$this->getDoctrine()->getRepository(Article::class);        	
-        	$article = $repo->find($id);        	
-        	return $this->render('blog/show.html.twig', [
-        		'article'=>$article
+          $comment = new Comment();
+
+          $form = $this->createForm(CommentType::class, $comment);
+
+          $form->handleRequest($request);
+
+          if ($form->isSubmitted() && $form->isValid()){
+            $comment->setCreatedAT(new \DateTime())
+                    ->setArticle($article);
+
+            $manager->persist($comment);
+            $manager->flush();
+
+            Return $this->redirectToRoute('blog_show', ['id'=>$article->getId()]);
+          }
+
+        	return $this->render ('blog/show.html.twig', [
+            'article'=>$article,
+            'commentForm'=> $form->createView()
             ]);
         }      
 

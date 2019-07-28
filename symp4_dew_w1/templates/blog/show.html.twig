@@ -15,11 +15,12 @@
         
         
         <section id="commentaires">
+            <h3>{{article.comments | length}} Les commentaires</h3>
         	{% for comment in article.comments %}
         		<div class="comment">
-        			<div class="rox">
+        			<div class="row">
         				<div class="col3">
-        				    {{ comment.author }} (<small> {{ comment.createdAt | date('d/m/Y à H:i') }}</small>)
+        				    {{ comment.author }} (<small> {{ comment.createdAt | date('d/m/Y ï¿½ H:i') }}</small>)
         				</div>
         				<div class="col">
         				    {{ comment.content |raw }}
@@ -27,5 +28,10 @@
         			</div>
         		</div>
         {% endfor %}
+            {{ form_start(commentForm) }}
+            {{form_row(commentForm.author, {'attr':{'placeholder': "votre nom"}})}}
+            {{form_row(commentForm.content, {'attr':{'placeholder': "votre commentaire"} })}}
+            <button type="submit" class"btn btn-success"> Commentez </button>
+            {{ form_end(commentForm) }}
         </section>   
 {% endblock %}

@@ -28,10 +28,17 @@
         			</div>
         		</div>
         {% endfor %}
+
+        {% if app.user %}
             {{ form_start(commentForm) }}
             {{form_row(commentForm.author, {'attr':{'placeholder': "votre nom"}})}}
             {{form_row(commentForm.content, {'attr':{'placeholder': "votre commentaire"} })}}
             <button type="submit" class"btn btn-success"> Commentez </button>
             {{ form_end(commentForm) }}
+
+        {% else%}
+                <h4> Vous ne pouvez pas commenter sans etre connecté</h4>
+                <a href="{{path('security_login') }}" class="btn btn-primary"> Connewion </a>
+        {% endif %}
         </section>   
 {% endblock %}
